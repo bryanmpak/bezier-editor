@@ -1,0 +1,12 @@
+/*
+
+steps:
+  Bezier editor (today):
+    1. just copy and paste the maths (for now)
+    2. UI: Grid & usePosition
+    3. Curve & Handle
+  Presets:
+    1. the 4 presets in the Google Chrome inspector
+  Progress thing-y & data output
+
+*/
