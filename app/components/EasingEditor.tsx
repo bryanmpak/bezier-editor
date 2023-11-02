@@ -1,29 +1,47 @@
 "use client"
 
-import React, { KeyboardEvent, useMemo, useRef, useState } from "react"
+import React, {
+  Dispatch,
+  KeyboardEvent,
+  SetStateAction,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import Handle from "./Handle"
 import { Curve } from "./Curve"
-
-export type EasingEditorValue = [number, number, number, number]
+import { BezierCurveValue } from "../page"
 
 type EasingEditorProps = {
-  defaultValue?: EasingEditorValue
+  value: BezierCurveValue
+  setValue: Dispatch<SetStateAction<BezierCurveValue>>
   width?: number
   height?: number
 }
 
+/*
+
+default easing curves:
+https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function#values
+ease = cubic-bezier(0.25, 0.1, 0.25, 1).
+ease-in = cubic-bezier(0.42, 0, 1, 1).
+ease-out = cubic-bezier(0, 0, 0.58, 1).
+ease-in-out = cubic-bezier(0.42, 0, 0.58, 1).
+linear = cubic-bezier(0.0, 0.0, 1.0, 1.0).
+*/
+
 const EasingEditor = ({
+  value,
+  setValue,
   width = 300,
   height = 300,
-  defaultValue = [0.42, 0, 0.58, 1],
 }: EasingEditorProps) => {
-  const [value, setValue] = useState(defaultValue)
   const editorRef = useRef<SVGSVGElement | null>(null)
   const [isDragging, setIsDragging] = useState<null | number>(null)
 
   const { x, y } = useMemo(() => {
-    const xFunc = (value: number) => Math.round(value * width)
-    const yFunc = (value: number) => Math.round((1 - value) * height)
+    const xFunc = (val: number) => Math.round(val * width)
+    const yFunc = (val: number) => Math.round((1 - val) * height)
 
     return { x: xFunc, y: yFunc }
   }, [width, height])
@@ -53,7 +71,7 @@ const EasingEditor = ({
         // based on index, which handle is being adjusted
         newValue[isDragging * 2] = x
         newValue[isDragging * 2 + 1] = y
-        setValue(newValue as EasingEditorValue)
+        setValue(newValue as BezierCurveValue)
       }
     }
   }

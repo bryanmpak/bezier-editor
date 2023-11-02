@@ -1,7 +1,10 @@
+// maths taken from github.com/gre/bezier-easing & modified for TS
+
 const NEWTON_ITERATIONS = 4
 const NEWTON_MIN_SLOPE = 0.001
 const SUBDIVISION_PRECISION = 0.0000001
 const SUBDIVISION_MAX_ITERATIONS = 10
+
 const kSplineTableSize = 11
 const kSampleStepSize = 1.0 / (kSplineTableSize - 1.0)
 

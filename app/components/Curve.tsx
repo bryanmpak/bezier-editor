@@ -1,9 +1,9 @@
 import React, { memo, useMemo } from "react"
 import { Position, usePosition } from "../utils/usePosition"
-import { EasingEditorValue } from "./EasingEditor"
+import { BezierCurveValue } from "../page"
 
 type CurveProps = {
-  value: EasingEditorValue
+  value: BezierCurveValue
   position: Position
 }
 
