@@ -2,7 +2,7 @@
 
 import React, { KeyboardEvent, useMemo, useRef, useState } from "react"
 import Handle from "./Handle"
-import { Position, usePosition } from "../utils/usePosition"
+import { Curve } from "./Curve"
 
 export type EasingEditorValue = [number, number, number, number]
 
@@ -15,7 +15,7 @@ type EasingEditorProps = {
 const EasingEditor = ({
   width = 300,
   height = 300,
-  defaultValue = [0.25, 0.25, 0.75, 0.75],
+  defaultValue = [0.42, 0, 0.58, 1],
 }: EasingEditorProps) => {
   const [value, setValue] = useState(defaultValue)
   const editorRef = useRef<SVGSVGElement | null>(null)
@@ -112,6 +112,7 @@ const EasingEditor = ({
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
+      <Curve value={value} position={position} />
       <Handle
         index={0}
         initialX={value[0]}

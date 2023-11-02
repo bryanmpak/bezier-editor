@@ -1,6 +1,6 @@
 "use client"
 
-import React, { KeyboardEvent, useEffect, useRef, useState } from "react"
+import React from "react"
 import { Position, usePosition } from "../utils/usePosition"
 
 type HandleProps = {
