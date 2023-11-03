@@ -30,15 +30,12 @@ export const Curve: React.FC<CurveProps> = memo(function Curve({
     const controlEndY = y(value[3])
     return `M${startX},${startY} C${controlStartX},${controlStartY} ${controlEndX},${controlEndY} ${endX},${endY}`
   }, [value, x, y])
-  console.log(curve)
 
   return (
     <>
-      <path fill='none' stroke='black' strokeWidth={2} d={curve} />
+      <path className='stroke-2 stroke-black fill-none' d={curve} />
       <path
-        fill='none'
-        stroke='grey'
-        strokeWidth={1}
+        className='stroke-1 stroke-gray-500 fill-none'
         d={`M${padding},${height - padding} C${padding},${height - padding} ${
           width - padding
         },${padding} ${width - padding},${padding}`}

@@ -1,5 +1,7 @@
 import { useMemo } from "react"
-const interp = (a: number, b: number, x: number) => {
+
+// interpolating b/w the start & end points
+const interpolate = (a: number, b: number, x: number) => {
   return a * (1 - x) + b * x
 }
 
@@ -14,13 +16,15 @@ export interface Position {
   }
 }
 
-export const usePosition = (p: Position) => {
+export const usePosition = (pos: Position) => {
   const result = useMemo(
     () => ({
-      x: (value: number) => Math.round(interp(p.x.from, p.x.to, value)),
-      y: (value: number) => Math.round(interp(p.y.from, p.y.to, value)),
+      x: (value: number) =>
+        Math.round(interpolate(pos.x.from, pos.x.to, value)),
+      y: (value: number) =>
+        Math.round(interpolate(pos.y.from, pos.y.to, value)),
     }),
-    [p.x.from, p.x.to, p.y.from, p.y.to]
+    [pos.x.from, pos.x.to, pos.y.from, pos.y.to]
   )
   return result
 }

@@ -10,6 +10,7 @@ import {
 } from "react"
 import { BezierCurveValue } from "../page"
 import { bezier } from "../utils/bezier-easing"
+import { FPS, OPACITY, TIME_ELAPSED } from "../utils/constants"
 
 type EasingVisualizerProps = {
   value: BezierCurveValue
@@ -18,8 +19,9 @@ type EasingVisualizerProps = {
 
 const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [fps, setFps] = useState(30) // TTD: pull this up to page and pass as props
-  const ghostOpacity = 0.2
+  const fps = FPS
+  const elapsedOpacity = OPACITY
+  const animationTiming = TIME_ELAPSED
 
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [containerWidth, setContainerWidth] = useState(0)
@@ -60,7 +62,7 @@ const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
       } else {
         setIsPlaying(false)
       }
-    }, 1000 / fps) // TTD: pull this up to page and pass as props
+    }, animationTiming / fps) // TTD: pull this up to page and pass as props
 
     return () => clearInterval(intervalId)
   }, [activeStepIndex, isPlaying])
@@ -78,7 +80,7 @@ const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
                 ? 1
                 : index > activeStepIndex
                 ? 0
-                : ghostOpacity,
+                : elapsedOpacity,
           }}
         />
       ))}

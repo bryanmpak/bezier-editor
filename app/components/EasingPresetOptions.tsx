@@ -19,13 +19,13 @@ const EasingPresetOptions = ({
       {Object.keys(easingPresets).map((presetKey) => (
         <button
           key={presetKey}
+          title={presetKey}
           className={`h-12 w-12 rounded-md border bg-gray-200 hover:bg-gray-300 ${
             currentPreset === easingPresets[presetKey] ? "bg-gray-300" : ""
           }`}
           onClick={() => handleClick(presetKey)}
         >
           <img src={easingPresets[presetKey].img} alt={presetKey} />{" "}
-          {/* Display the image from the preset */}
         </button>
       ))}
     </div>

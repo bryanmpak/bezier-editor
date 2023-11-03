@@ -10,6 +10,7 @@ import React, {
 import Handle from "./Handle"
 import { Curve } from "./Curve"
 import { BezierCurveValue } from "../page"
+import { PADDING } from "../utils/constants"
 
 type EasingEditorProps = {
   value: BezierCurveValue
@@ -28,7 +29,7 @@ const EasingEditor = ({
   const [isDragging, setIsDragging] = useState<null | number>(null)
 
   // to get some padding on the SVG
-  const padding = 16
+  const padding = PADDING
   const paddedWidth = width - padding * 2
   const paddedHeight = height - padding * 2
 
@@ -59,8 +60,11 @@ const EasingEditor = ({
       const rect = editorRef.current.getBoundingClientRect()
       if (rect) {
         const newValue = value.slice()
-        const x = (e.clientX - rect.left - padding) / paddedWidth
+        let x = (e.clientX - rect.left - padding) / paddedWidth
         const y = 1 - (e.clientY - rect.top - padding) / paddedHeight
+
+        // clamping x value to range [0, 1], per bezier-easing.ts spec
+        x = Math.min(Math.max(x, 0), 1)
 
         // based on index, which handle is being adjusted
         newValue[isDragging * 2] = x
@@ -121,16 +125,16 @@ const EasingEditor = ({
         className='absolute w-full h-full bg-[length:16px_16px] pointer-events-none'
         style={{
           backgroundImage:
-            "   radial-gradient(circle at 6px 6px, rgb(26, 26, 26, 0.5) 1px, transparent 0)",
+            "   radial-gradient(circle at 6px 6px, rgb(26, 26, 26, 0.2) 1px, transparent 0)",
         }}
       ></div>
       <svg
-        // className='z-10'
         ref={editorRef}
         width={width}
         height={height}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
       >
         <Curve
           value={value}

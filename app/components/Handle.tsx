@@ -1,5 +1,6 @@
 import React from "react"
 import { Position, usePosition } from "../utils/usePosition"
+import { RADIUS } from "../utils/constants"
 
 type HandleProps = {
   index: number
@@ -26,9 +27,8 @@ HandleProps) => {
   const controlX = x(initialX)
   const controlY = y(initialY)
   const a = Math.atan2(controlY - startY, controlX - startX)
-  // TTD: what is the 6 here
-  const cxs = controlX - 6 * Math.cos(a)
-  const cys = controlY - 6 * Math.sin(a)
+  const cxs = controlX - RADIUS * Math.cos(a)
+  const cys = controlY - RADIUS * Math.sin(a)
 
   return (
     <>
@@ -43,7 +43,7 @@ HandleProps) => {
         className='focus:rounded-full hover:cursor-pointer fill-purple-500 focus:outline-purple-600'
         cx={controlX}
         cy={controlY}
-        r={6}
+        r={RADIUS}
         onMouseDown={handleMouseDown}
         // optional: maybe figure this out later
         // onKeyDown={handleKeyDown}
