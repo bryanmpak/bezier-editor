@@ -33,19 +33,17 @@ HandleProps) => {
   return (
     <>
       <line
-        stroke='purple'
-        strokeWidth={2}
+        className='stroke-purple-500 stroke-2'
         x1={cxs}
         y1={cys}
         x2={startX}
         y2={startY}
       />
       <circle
-        className='focus:rounded-full hover:cursor-pointer focus:ring-purple-300'
+        className='focus:rounded-full hover:cursor-pointer fill-purple-500 focus:outline-purple-600'
         cx={controlX}
         cy={controlY}
         r={6}
-        fill='purple'
         onMouseDown={handleMouseDown}
         // optional: maybe figure this out later
         // onKeyDown={handleKeyDown}

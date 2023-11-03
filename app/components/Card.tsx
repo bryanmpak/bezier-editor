@@ -8,7 +8,8 @@ type CardProps = {
 
 const Card = ({ children, cardHeight, cardWidth }: CardProps) => {
   return (
-    <div className='flex flex-col mx-auto rounded-md shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-8 w-[450px]'>
+    // TTD: revisit shadow & width since it's hard coded
+    <div className='flex flex-col rounded-md shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-8 w-[450px]'>
       {children}
     </div>
   )

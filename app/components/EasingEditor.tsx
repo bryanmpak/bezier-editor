@@ -28,15 +28,17 @@ const EasingEditor = ({
   const [isDragging, setIsDragging] = useState<null | number>(null)
 
   // to get some padding on the SVG
-  const paddedWidth = width
-  const paddedHeight = height
+  const padding = 16
+  const paddedWidth = width - padding * 2
+  const paddedHeight = height - padding * 2
 
   const { x, y } = useMemo(() => {
-    const xFunc = (val: number) => Math.round(val * paddedWidth)
-    const yFunc = (val: number) => Math.round((1 - val) * paddedHeight)
+    const xFunc = (val: number) => Math.round(val * paddedWidth) + padding
+    const yFunc = (val: number) =>
+      Math.round((1 - val) * paddedHeight) + padding
 
     return { x: xFunc, y: yFunc }
-  }, [paddedWidth, paddedHeight])
+  }, [paddedWidth, paddedHeight, padding])
 
   const position = useMemo(
     () => ({
@@ -57,8 +59,8 @@ const EasingEditor = ({
       const rect = editorRef.current.getBoundingClientRect()
       if (rect) {
         const newValue = value.slice()
-        const x = (e.clientX - rect.left) / paddedWidth
-        const y = 1 - (e.clientY - rect.top) / paddedHeight
+        const x = (e.clientX - rect.left - padding) / paddedWidth
+        const y = 1 - (e.clientY - rect.top - padding) / paddedHeight
 
         // based on index, which handle is being adjusted
         newValue[isDragging * 2] = x
@@ -114,7 +116,7 @@ const EasingEditor = ({
   }
 
   return (
-    <div className='relative mx-auto' style={{ width: width, height: height }}>
+    <div className='relative' style={{ width: width, height: height }}>
       <div
         className='absolute w-full h-full bg-[length:16px_16px] pointer-events-none'
         style={{
@@ -133,8 +135,9 @@ const EasingEditor = ({
         <Curve
           value={value}
           position={position}
-          width={paddedWidth}
-          height={paddedHeight}
+          width={width}
+          height={width}
+          padding={padding}
         />
         <Handle
           index={0}

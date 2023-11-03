@@ -7,6 +7,7 @@ type CurveProps = {
   position: Position
   width: number
   height: number
+  padding: number
 }
 
 export const Curve: React.FC<CurveProps> = memo(function Curve({
@@ -14,6 +15,7 @@ export const Curve: React.FC<CurveProps> = memo(function Curve({
   position,
   width,
   height,
+  padding,
 }) {
   const { x, y } = usePosition(position)
 
@@ -37,7 +39,9 @@ export const Curve: React.FC<CurveProps> = memo(function Curve({
         fill='none'
         stroke='grey'
         strokeWidth={1}
-        d={`M0,${height} C0,${height} ${width},2 ${width},0`}
+        d={`M${padding},${height - padding} C${padding},${height - padding} ${
+          width - padding
+        },${padding} ${width - padding},${padding}`}
       />
     </>
   )

@@ -18,7 +18,7 @@ type EasingVisualizerProps = {
 
 const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [fps, setFps] = useState(60)
+  const [fps, setFps] = useState(30) // TTD: pull this up to page and pass as props
   const ghostOpacity = 0.2
 
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -30,6 +30,7 @@ const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
     }
   }, [])
 
+  // TTD: figure out how to deal with negative values
   const easingFunction = useMemo(() => bezier(...value), [value])
 
   const getSteps = (easingFn: (x: number) => number, fps: number) => {
@@ -59,7 +60,7 @@ const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
       } else {
         setIsPlaying(false)
       }
-    }, 500 / fps)
+    }, 1000 / fps) // TTD: pull this up to page and pass as props
 
     return () => clearInterval(intervalId)
   }, [activeStepIndex, isPlaying])
@@ -69,7 +70,7 @@ const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
       {steps.map((step, index) => (
         <div
           key={step}
-          className='absolute top-0 w-8 h-8 border-2 border-purple-500 rounded-full'
+          className='absolute top-0 w-8 h-8 border border-purple-500 bg-purple-400 rounded-full'
           style={{
             transform: `translateX(${step * containerWidth}px)`,
             opacity:
