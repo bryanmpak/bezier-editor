@@ -2,7 +2,6 @@
 
 import React, {
   Dispatch,
-  KeyboardEvent,
   SetStateAction,
   useMemo,
   useRef,
@@ -19,17 +18,6 @@ type EasingEditorProps = {
   height?: number
 }
 
-/*
-
-default easing curves:
-https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function#values
-ease = cubic-bezier(0.25, 0.1, 0.25, 1).
-ease-in = cubic-bezier(0.42, 0, 1, 1).
-ease-out = cubic-bezier(0, 0, 0.58, 1).
-ease-in-out = cubic-bezier(0.42, 0, 0.58, 1).
-linear = cubic-bezier(0.0, 0.0, 1.0, 1.0).
-*/
-
 const EasingEditor = ({
   value,
   setValue,
@@ -39,12 +27,16 @@ const EasingEditor = ({
   const editorRef = useRef<SVGSVGElement | null>(null)
   const [isDragging, setIsDragging] = useState<null | number>(null)
 
+  // to get some padding on the SVG
+  const paddedWidth = width
+  const paddedHeight = height
+
   const { x, y } = useMemo(() => {
-    const xFunc = (val: number) => Math.round(val * width)
-    const yFunc = (val: number) => Math.round((1 - val) * height)
+    const xFunc = (val: number) => Math.round(val * paddedWidth)
+    const yFunc = (val: number) => Math.round((1 - val) * paddedHeight)
 
     return { x: xFunc, y: yFunc }
-  }, [width, height])
+  }, [paddedWidth, paddedHeight])
 
   const position = useMemo(
     () => ({
@@ -65,8 +57,8 @@ const EasingEditor = ({
       const rect = editorRef.current.getBoundingClientRect()
       if (rect) {
         const newValue = value.slice()
-        const x = (e.clientX - rect.left) / width
-        const y = 1 - (e.clientY - rect.top) / height
+        const x = (e.clientX - rect.left) / paddedWidth
+        const y = 1 - (e.clientY - rect.top) / paddedHeight
 
         // based on index, which handle is being adjusted
         newValue[isDragging * 2] = x
@@ -87,16 +79,16 @@ const EasingEditor = ({
 
   //     switch (e.key) {
   //       case "ArrowUp":
-  //         y = Math.max(0, y - 5 / height) // Ensure y remains within bounds [0, 1]
+  //         y = Math.max(0, y - 5 / paddedHeight) // Ensure y remains within bounds [0, 1]
   //         break
   //       case "ArrowDown":
-  //         y = Math.min(1, y + 5 / height) // Ensure y remains within bounds [0, 1]
+  //         y = Math.min(1, y + 5 / paddedHeight) // Ensure y remains within bounds [0, 1]
   //         break
   //       case "ArrowLeft":
-  //         x = Math.max(0, x - 5 / width) // Ensure x remains within bounds [0, 1]
+  //         x = Math.max(0, x - 5 / paddedWidth) // Ensure x remains within bounds [0, 1]
   //         break
   //       case "ArrowRight":
-  //         x = Math.min(1, x + 5 / width) // Ensure x remains within bounds [0, 1]
+  //         x = Math.min(1, x + 5 / paddedWidth) // Ensure x remains within bounds [0, 1]
   //         break
   //       default:
   //         return
@@ -122,32 +114,46 @@ const EasingEditor = ({
   }
 
   return (
-    <svg
-      className='bg-neutral-400'
-      ref={editorRef}
-      width={width}
-      height={height}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-    >
-      <Curve value={value} position={position} />
-      <Handle
-        index={0}
-        initialX={value[0]}
-        initialY={value[1]}
-        handleMouseDown={handleMouseDown(0)}
-        position={position}
-        // handleKeyDown={handleKeyDown}
-      />
-      <Handle
-        index={1}
-        initialX={value[2]}
-        initialY={value[3]}
-        handleMouseDown={handleMouseDown(1)}
-        position={position}
-        // handleKeyDown={handleKeyDown}
-      />
-    </svg>
+    <div className='relative mx-auto' style={{ width: width, height: height }}>
+      <div
+        className='absolute w-full h-full bg-[length:16px_16px] pointer-events-none'
+        style={{
+          backgroundImage:
+            "   radial-gradient(circle at 6px 6px, rgb(26, 26, 26, 0.5) 1px, transparent 0)",
+        }}
+      ></div>
+      <svg
+        // className='z-10'
+        ref={editorRef}
+        width={width}
+        height={height}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+      >
+        <Curve
+          value={value}
+          position={position}
+          width={paddedWidth}
+          height={paddedHeight}
+        />
+        <Handle
+          index={0}
+          initialX={value[0]}
+          initialY={value[1]}
+          handleMouseDown={handleMouseDown(0)}
+          position={position}
+          // handleKeyDown={handleKeyDown}
+        />
+        <Handle
+          index={1}
+          initialX={value[2]}
+          initialY={value[3]}
+          handleMouseDown={handleMouseDown(1)}
+          position={position}
+          // handleKeyDown={handleKeyDown}
+        />
+      </svg>
+    </div>
   )
 }
 

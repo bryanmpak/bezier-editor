@@ -5,11 +5,15 @@ import { BezierCurveValue } from "../page"
 type CurveProps = {
   value: BezierCurveValue
   position: Position
+  width: number
+  height: number
 }
 
 export const Curve: React.FC<CurveProps> = memo(function Curve({
   value,
   position,
+  width,
+  height,
 }) {
   const { x, y } = usePosition(position)
 
@@ -24,6 +28,17 @@ export const Curve: React.FC<CurveProps> = memo(function Curve({
     const controlEndY = y(value[3])
     return `M${startX},${startY} C${controlStartX},${controlStartY} ${controlEndX},${controlEndY} ${endX},${endY}`
   }, [value, x, y])
+  console.log(curve)
 
-  return <path fill='none' stroke='white' strokeWidth={4} d={curve} />
+  return (
+    <>
+      <path fill='none' stroke='black' strokeWidth={2} d={curve} />
+      <path
+        fill='none'
+        stroke='grey'
+        strokeWidth={1}
+        d={`M0,${height} C0,${height} ${width},2 ${width},0`}
+      />
+    </>
+  )
 })

@@ -20,12 +20,13 @@ const Handle = ({
 HandleProps) => {
   // Calculations for the line's starting point
   const { x, y } = usePosition(position)
-  // incorrect since you need the usePosition (interpolating between the two points)
+
   const startX = x(index)
   const startY = y(index)
   const controlX = x(initialX)
   const controlY = y(initialY)
   const a = Math.atan2(controlY - startY, controlX - startX)
+  // TTD: what is the 6 here
   const cxs = controlX - 6 * Math.cos(a)
   const cys = controlY - 6 * Math.sin(a)
 
@@ -40,7 +41,7 @@ HandleProps) => {
         y2={startY}
       />
       <circle
-        className='focus:rounded-full'
+        className='focus:rounded-full hover:cursor-pointer focus:ring-purple-300'
         cx={controlX}
         cy={controlY}
         r={6}

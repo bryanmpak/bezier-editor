@@ -19,7 +19,7 @@ type EasingVisualizerProps = {
 const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [fps, setFps] = useState(60)
-  const [ghostOpacity, setGhostOpacity] = useState(0.2)
+  const ghostOpacity = 0.2
 
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [containerWidth, setContainerWidth] = useState(0)
@@ -48,9 +48,9 @@ const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
   const [activeStepIndex, setActiveStepIndex] = useState(steps.length - 1)
 
   useEffect(() => {
-    setActiveStepIndex(0) // Reset the step index to 0
-    setIsPlaying(true) // Start the animation
-  }, [value]) // This effect will run whenever `value` changes
+    setActiveStepIndex(0)
+    setIsPlaying(true)
+  }, [value])
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -59,17 +59,17 @@ const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
       } else {
         setIsPlaying(false)
       }
-    }, 1000 / fps)
+    }, 500 / fps)
 
     return () => clearInterval(intervalId)
   }, [activeStepIndex, isPlaying])
 
   return (
-    <div ref={containerRef} className='relative h-12 mr-12'>
+    <div ref={containerRef} className='relative h-10 mr-8'>
       {steps.map((step, index) => (
         <div
           key={step}
-          className='absolute top-0 w-12 h-12 border-4 border-purple-500 rounded-full'
+          className='absolute top-0 w-8 h-8 border-2 border-purple-500 rounded-full'
           style={{
             transform: `translateX(${step * containerWidth}px)`,
             opacity:
