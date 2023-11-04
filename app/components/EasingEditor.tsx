@@ -66,9 +66,10 @@ const EasingEditor = ({
         // clamping x value to range [0, 1], per bezier-easing.ts spec
         x = Math.min(Math.max(x, 0), 1)
 
-        // based on index, which handle is being adjusted
+        // based on coordinate, which handle is being adjusted
         newValue[isDragging * 2] = x
         newValue[isDragging * 2 + 1] = y
+
         setValue(newValue as BezierCurveValue)
       }
     }
@@ -113,6 +114,7 @@ const EasingEditor = ({
 
   const handleMouseDown = (index: number) => () => {
     setIsDragging(index)
+    console.log(index)
   }
 
   const handleMouseUp = () => {

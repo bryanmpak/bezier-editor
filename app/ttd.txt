@@ -1,12 +1,15 @@
 /*
-
-steps:
-  Bezier editor (today):
-    1. just copy and paste the maths (for now)
-    2. UI: Grid & usePosition
-    3. Curve & Handle
-  Presets:
-    1. the 4 presets in the Google Chrome inspector
-  Progress thing-y & data output
+now:
+  have visualizer based on separate state that is triggered when onMouseUp & onMouseLeave (&when presets change)
+  change the functionality of 'linear' (maybe)
+  move all types to a types file
+  push all the event handlers into a separate helper file (maybe)
+optional:
+  Bezier editor:
+    1. keyboard accessibility
+  Dark mode
+later:
+  responsive sizes (<300 width)
+  
 
 */

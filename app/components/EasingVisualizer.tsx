@@ -1,23 +1,15 @@
 "use client"
 
-import {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { BezierCurveValue } from "../page"
 import { bezier } from "../utils/bezier-easing"
 import { FPS, OPACITY, TIME_ELAPSED } from "../utils/constants"
 
 type EasingVisualizerProps = {
   value: BezierCurveValue
-  setValue: Dispatch<SetStateAction<BezierCurveValue>>
 }
 
-const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
+const EasingVisualizer = ({ value }: EasingVisualizerProps) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const fps = FPS
   const elapsedOpacity = OPACITY
@@ -32,7 +24,6 @@ const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
     }
   }, [])
 
-  // TTD: figure out how to deal with negative values
   const easingFunction = useMemo(() => bezier(...value), [value])
 
   const getSteps = (easingFn: (x: number) => number, fps: number) => {
@@ -62,7 +53,7 @@ const EasingVisualizer = ({ value, setValue }: EasingVisualizerProps) => {
       } else {
         setIsPlaying(false)
       }
-    }, animationTiming / fps) // TTD: pull this up to page and pass as props
+    }, animationTiming / fps)
 
     return () => clearInterval(intervalId)
   }, [activeStepIndex, isPlaying])

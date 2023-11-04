@@ -48,8 +48,8 @@ export default function Home() {
 
   return (
     <Container>
-      <Card cardHeight={600} cardWidth={300}>
-        <EasingVisualizer value={currentValue} setValue={setCurrentValue} />
+      <Card cardWidth={450}>
+        <EasingVisualizer value={currentValue} />
         <div className='flex justify-evenly'>
           <EasingPresetOptions
             currentPreset={currentPreset}

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction } from "react"
 import { EasingPreset, easingPresets } from "../page"
 
 type EasingPresetOptionsProps = {
