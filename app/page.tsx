@@ -7,17 +7,7 @@ import EasingEditor from "./components/EasingEditor"
 import EasingVisualizer from "./components/EasingVisualizer"
 import EasingPresetOptions from "./components/EasingPresetOptions"
 import { DEFAULT_PRESET } from "./utils/constants"
-
-export type BezierCurveValue = [number, number, number, number]
-
-export interface EasingPreset {
-  img: string
-  value: BezierCurveValue
-}
-
-type EasingPresetsType = {
-  [key: string]: EasingPreset
-}
+import { BezierCurveValue, EasingPresetsType } from "./utils/typings"
 
 /*
 default easing curves:
@@ -36,28 +26,28 @@ export default function Home() {
   const defaultPreset = easingPresets[DEFAULT_PRESET]
 
   const [currentPreset, setCurrentPreset] = useState(defaultPreset)
-  const [currentValue, setCurrentValue] = useState(
+  const [currentValues, setCurrentValues] = useState(
     currentPreset.value as BezierCurveValue
   )
 
-  const roundedCurrentValues = currentValue.map((val) => val.toFixed(1))
+  const roundedCurrentValues = currentValues.map((val) => val.toFixed(1))
 
   useEffect(() => {
-    setCurrentValue(currentPreset.value as BezierCurveValue)
+    setCurrentValues(currentPreset.value as BezierCurveValue)
   }, [currentPreset])
 
   return (
     <Container>
       <Card cardWidth={450}>
-        <EasingVisualizer value={currentValue} />
+        <EasingVisualizer values={currentValues} />
         <div className='flex justify-evenly'>
           <EasingPresetOptions
             currentPreset={currentPreset}
             setCurrentPreset={setCurrentPreset}
           />
           <EasingEditor
-            value={currentValue}
-            setValue={setCurrentValue}
+            values={currentValues}
+            setValues={setCurrentValues}
             height={300}
             width={300}
           />

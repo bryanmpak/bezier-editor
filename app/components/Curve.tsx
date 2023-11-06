@@ -1,9 +1,9 @@
 import React, { memo, useMemo } from "react"
 import { Position, usePosition } from "../utils/usePosition"
-import { BezierCurveValue } from "../page"
+import { BezierCurveValue } from "../utils/typings"
 
 type CurveProps = {
-  value: BezierCurveValue
+  values: BezierCurveValue
   position: Position
   width: number
   height: number
@@ -11,7 +11,7 @@ type CurveProps = {
 }
 
 export const Curve: React.FC<CurveProps> = memo(function Curve({
-  value,
+  values,
   position,
   width,
   height,
@@ -24,12 +24,12 @@ export const Curve: React.FC<CurveProps> = memo(function Curve({
     const startY = y(0)
     const endX = x(1)
     const endY = y(1)
-    const controlStartX = x(value[0])
-    const controlStartY = y(value[1])
-    const controlEndX = x(value[2])
-    const controlEndY = y(value[3])
+    const controlStartX = x(values[0])
+    const controlStartY = y(values[1])
+    const controlEndX = x(values[2])
+    const controlEndY = y(values[3])
     return `M${startX},${startY} C${controlStartX},${controlStartY} ${controlEndX},${controlEndY} ${endX},${endY}`
-  }, [value, x, y])
+  }, [values, x, y])
 
   return (
     <>

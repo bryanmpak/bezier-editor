@@ -9,19 +9,19 @@ import React, {
 } from "react"
 import Handle from "./Handle"
 import { Curve } from "./Curve"
-import { BezierCurveValue } from "../page"
 import { PADDING } from "../utils/constants"
+import { BezierCurveValue } from "../utils/typings"
 
 type EasingEditorProps = {
-  value: BezierCurveValue
-  setValue: Dispatch<SetStateAction<BezierCurveValue>>
+  values: BezierCurveValue
+  setValues: Dispatch<SetStateAction<BezierCurveValue>>
   width?: number
   height?: number
 }
 
 const EasingEditor = ({
-  value,
-  setValue,
+  values,
+  setValues,
   width = 300,
   height = 300,
 }: EasingEditorProps) => {
@@ -59,7 +59,7 @@ const EasingEditor = ({
     if (isDragging !== null && editorRef.current) {
       const rect = editorRef.current.getBoundingClientRect()
       if (rect) {
-        const newValue = value.slice()
+        const newValue = values.slice()
         let x = (e.clientX - rect.left - padding) / paddedWidth
         const y = 1 - (e.clientY - rect.top - padding) / paddedHeight
 
@@ -70,7 +70,7 @@ const EasingEditor = ({
         newValue[isDragging * 2] = x
         newValue[isDragging * 2 + 1] = y
 
-        setValue(newValue as BezierCurveValue)
+        setValues(newValue as BezierCurveValue)
       }
     }
   }
@@ -114,7 +114,6 @@ const EasingEditor = ({
 
   const handleMouseDown = (index: number) => () => {
     setIsDragging(index)
-    console.log(index)
   }
 
   const handleMouseUp = () => {
@@ -139,7 +138,7 @@ const EasingEditor = ({
         onMouseLeave={handleMouseUp}
       >
         <Curve
-          value={value}
+          values={values}
           position={position}
           width={width}
           height={width}
@@ -147,16 +146,16 @@ const EasingEditor = ({
         />
         <Handle
           index={0}
-          initialX={value[0]}
-          initialY={value[1]}
+          initialX={values[0]}
+          initialY={values[1]}
           handleMouseDown={handleMouseDown(0)}
           position={position}
           // handleKeyDown={handleKeyDown}
         />
         <Handle
           index={1}
-          initialX={value[2]}
-          initialY={value[3]}
+          initialX={values[2]}
+          initialY={values[3]}
           handleMouseDown={handleMouseDown(1)}
           position={position}
           // handleKeyDown={handleKeyDown}

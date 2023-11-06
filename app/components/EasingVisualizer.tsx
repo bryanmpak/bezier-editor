@@ -1,15 +1,15 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
-import { BezierCurveValue } from "../page"
 import { bezier } from "../utils/bezier-easing"
 import { FPS, OPACITY, TIME_ELAPSED } from "../utils/constants"
+import { BezierCurveValue } from "../utils/typings"
 
 type EasingVisualizerProps = {
-  value: BezierCurveValue
+  values: BezierCurveValue
 }
 
-const EasingVisualizer = ({ value }: EasingVisualizerProps) => {
+const EasingVisualizer = ({ values }: EasingVisualizerProps) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const fps = FPS
   const elapsedOpacity = OPACITY
@@ -24,7 +24,7 @@ const EasingVisualizer = ({ value }: EasingVisualizerProps) => {
     }
   }, [])
 
-  const easingFunction = useMemo(() => bezier(...value), [value])
+  const easingFunction = useMemo(() => bezier(...values), [values])
 
   const getSteps = (easingFn: (x: number) => number, fps: number) => {
     const steps = Array.from({ length: fps })
@@ -44,7 +44,7 @@ const EasingVisualizer = ({ value }: EasingVisualizerProps) => {
   useEffect(() => {
     setActiveStepIndex(0)
     setIsPlaying(true)
-  }, [value])
+  }, [values])
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -59,7 +59,7 @@ const EasingVisualizer = ({ value }: EasingVisualizerProps) => {
   }, [activeStepIndex, isPlaying])
 
   return (
-    <div ref={containerRef} className='relative h-10 mr-8'>
+    <div ref={containerRef} className='relative h-12 mr-8'>
       {steps.map((step, index) => (
         <div
           key={step}
