@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
-import { easingPresets } from "../page"
 import { EasingPreset } from "../utils/typings"
+import { easingPresets } from "../data/easingPresets"
 
 type EasingPresetOptionsProps = {
   currentPreset: EasingPreset

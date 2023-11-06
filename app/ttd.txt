@@ -1,9 +1,10 @@
 /*
 now:
-  have visualizer based on separate state that is triggered when onMouseUp & onMouseLeave (&when presets change)
+  have visualizer based on separate state that is triggered when onMouseUp & onMouseLeave (&when presets change) ✅
   change the functionality of 'linear' (maybe)
-  move all types to a types file
+  move all types to a types file ✅
   push all the event handlers into a separate helper file (maybe)
+  add relevant comments everywhere (maybe)
 optional:
   Bezier editor:
     1. keyboard accessibility

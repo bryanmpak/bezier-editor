@@ -125,5 +125,6 @@ export const bezier = (mX1: number, mY1: number, mX2: number, mY2: number) => {
       return x
     }
     return calcBezier(getTForX(x), mY1, mY2)
+    // console.log("bezcalc", calcBezier(getTForX(x), mY1, mY2))
   }
 }

@@ -15,6 +15,7 @@ import { BezierCurveValue } from "../utils/typings"
 type EasingEditorProps = {
   values: BezierCurveValue
   setValues: Dispatch<SetStateAction<BezierCurveValue>>
+  setVizValues: Dispatch<SetStateAction<BezierCurveValue>>
   width?: number
   height?: number
 }
@@ -22,6 +23,7 @@ type EasingEditorProps = {
 const EasingEditor = ({
   values,
   setValues,
+  setVizValues,
   width = 300,
   height = 300,
 }: EasingEditorProps) => {
@@ -118,6 +120,7 @@ const EasingEditor = ({
 
   const handleMouseUp = () => {
     setIsDragging(null)
+    setVizValues(values)
   }
 
   return (
