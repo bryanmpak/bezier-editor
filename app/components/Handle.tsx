@@ -19,7 +19,7 @@ const Handle = ({
   position,
 }: // handleKeyDown,
 HandleProps) => {
-  // Calculations for the line's starting point
+  // calculations for the line's starting point
   const { x, y } = usePosition(position)
 
   const startX = x(index)
@@ -33,14 +33,14 @@ HandleProps) => {
   return (
     <>
       <line
-        className='stroke-purple-500 stroke-2'
+        className='stroke-purple-400 stroke-2'
         x1={cxs}
         y1={cys}
         x2={startX}
         y2={startY}
       />
       <circle
-        className='focus:rounded-full hover:cursor-pointer fill-purple-500 focus:outline-purple-600'
+        className='focus:rounded-full hover:cursor-pointer fill-purple-400 focus:outline-purple-600'
         cx={controlX}
         cy={controlY}
         r={RADIUS}

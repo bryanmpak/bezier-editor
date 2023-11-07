@@ -126,7 +126,7 @@ const EasingEditor = ({
   return (
     <div className='relative' style={{ width: width, height: height }}>
       <div
-        className='absolute w-full h-full bg-[length:16px_16px] pointer-events-none'
+        className='absolute w-full h-full bg-[length:16px_16px] pointer-events-none -z-10'
         style={{
           backgroundImage:
             "   radial-gradient(circle at 6px 6px, rgb(26, 26, 26, 0.2) 1px, transparent 0)",

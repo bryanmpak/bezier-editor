@@ -11,9 +11,9 @@ import { BezierCurveValue, EasingPresetsType } from "./utils/typings"
 import { easingPresets } from "./data/easingPresets"
 
 export default function Home() {
-  const defaultPreset = easingPresets[DEFAULT_PRESET]
-
-  const [currentPreset, setCurrentPreset] = useState(defaultPreset)
+  const [currentPreset, setCurrentPreset] = useState(
+    easingPresets[DEFAULT_PRESET]
+  )
   const [currentValues, setCurrentValues] = useState(
     currentPreset.value as BezierCurveValue
   )
@@ -21,7 +21,7 @@ export default function Home() {
     currentPreset.value as BezierCurveValue
   )
 
-  const roundedCurrentValues = currentValues.map((val) => val.toFixed(1))
+  const roundedCurrentValues = currentValues.map((val) => val.toFixed(2))
 
   useEffect(() => {
     setCurrentValues(currentPreset.value)

@@ -35,7 +35,7 @@ const EasingVisualizer = ({ values }: EasingVisualizerProps) => {
 
   const steps = useMemo(
     () => getSteps(easingFunction, clampedFps),
-    [easingFunction, clampedFps]
+    [easingFunction]
   )
 
   const [activeStepIndex, setActiveStepIndex] = useState(steps.length - 1)
@@ -55,7 +55,7 @@ const EasingVisualizer = ({ values }: EasingVisualizerProps) => {
     }, animationDuration / clampedFps)
 
     return () => clearInterval(intervalId)
-  }, [activeStepIndex, isPlaying])
+  }, [activeStepIndex, isPlaying, steps.length])
 
   return (
     <div ref={containerRef} className='relative h-12 mr-8'>
